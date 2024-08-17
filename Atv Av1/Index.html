@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="content">
+        <div class="logo">
+            <img src="img/pngwing.com.png" alt="logo">
+            <h3>BurguerNow</h3>
+        </div>
+        <nav>
+            <ul class="listMenu">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">SOBRE NÓS</a></li>
+                <li><a href="#"><img src="img/whatsapp.svg" alt="whatsapp"></a></li>
+                <li><a href="#"><img src="img/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#carrinho"><img src="img/cart.svg" alt="Carrinho"></a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="cardapio">
+        <h2>Cardápio</h2>
+        <div class="itensCardapio">
+            <div class="xSalada">
+                <img src="img/xsalada.webp" alt="xSalada">
+                <div class="info">
+                    <h3>X-Salada</h3>
+                    <h4>Preço<span>R$10,00</span></h4>
+                    <h4>Serve<span>2 Pessoas</span></h4>
+                    <button class="pedir" data-name="X-Salada" data-price="10">Adicionar ao Carrinho</button>
+                </div>    
+            </div>
+
+            <div class="chesseBurguer">
+                <img src="img/cheeseburguer.jpg" alt="CheeseBurguer">
+                <div class="info">
+                    <h3>Cheese Burguer</h3>
+                    <h4>Preço<span>R$9,00</span></h4>
+                    <h4>Serve<span>1 Pessoa</span></h4>
+                    <button class="pedir" data-name="Cheese Burguer" data-price="9">Adicionar ao Carrinho</button>
+                </div>    
+            </div>
+
+            <div class="doubleMeet">
+                <img src="img/2 carnes.jpeg" alt="DoubleMeet">
+                <div class="info">
+                    <h3>Double Meet</h3>
+                    <h4>Preço<span>R$15,00</span></h4>
+                    <h4>Serve<span>3 Pessoas</span></h4>
+                    <button class="pedir" data-name="Double Meet" data-price="15">Adicionar ao Carrinho</button>
+                </div>    
+            </div>
+
+            <div class="xFish">
+                <img src="img/peixe" alt="xFish">
+                <div class="info">
+                    <h3>X-Fish</h3>
+                    <h4>Preço<span>R$12,00</span></h4>
+                    <h4>Serve<span>1 Pessoa</span></h4>
+                    <button class="pedir" data-name="X-Fish" data-price="12">Adicionar ao Carrinho</button>
+                </div>    
+            </div>
+
+        </div>
+    </section>
+
+    <section id="carrinho">
+        <h3>Carrinho</h3>
+        <div id="carrinhoItens"></div>
+        <h4>Total: R$ <span id="totalCarrinho">0,00</span></h4>
+        <button id="finalizarPedido" onclick="solicitarDados()">Finalizar Pedido</button>
+    </section>
+
+    <!-- Dados do cliente -->
+    <section id="dadosCliente">
+        <h3>Dados do Cliente</h3>
+        <label for="nomeCliente">Nome Completo:</label><br>
+        <input type="text" id="nomeCliente"><br><br>
+        <label for="enderecoCliente">Endereço:</label><br>
+        <textarea id="enderecoCliente" rows="3"></textarea><br><br>
+        <button id="resumoPedido" onclick="apresentarResumo()">Ver Resumo do Pedido</button>
+    </section>
+
+    <!-- Resumo do Pedido -->
+    <section id="resumoPedidoSecao" ">
+        <h3>Resumo do Pedido</h3>
+        <div id="resumoCarrinho"></div>
+        <h4>Total: R$ <span id="totalResumo">0,00</span></h4>
+        <h4>Nome: <span id="resumoNomeCliente"></span></h4>
+        <h4>Endereço: <span id="resumoEnderecoCliente"></span></h4>
+        <button id="confirmarPedido" onclick="finalizarPedido()">Confirmar Pedido</button>
+        <button id="cancelarPedido" onclick="cancelarPedido()">Cancelar Pedido</button>
+    </section>
+
+    <!-- Mensagem de Sucesso -->
+    <section id="mensagemSucesso"">
+        <h3>Pedido Finalizado com Sucesso!</h3>
+        <p>Obrigado por comprar conosco. Seu pedido será entregue em breve.</p>
+    </section>
+            <h3 class="pagamento">Opções de Pagamento</h3>
+            <div id="opcoesPagamento">
+                <label>
+                    <input type="radio" name="metodoPagamento" value="Cartão de Crédito"> Cartão de Crédito
+                </label><br>
+                <label>
+                    <input type="radio" name="metodoPagamento" value="Cartão de Débito"> Cartão de Débito
+                </label><br>
+                <label>
+                    <input type="radio" name="metodoPagamento" value="Pagamento na Entrega"> Pix
+                </label>
+            </div>
+    </section>
+
+
+    <section class="contatos" id="contatos">
+        <h3>Contatos</h3>
+        <div class="contatosSecao">
+            <div>
+                <i class="telephone"><img src="img/telephone-fill.svg"></i>
+                <span>(81)98707-3822</span>
+            </div>
+            <div>
+                <i class="Instagram"><img src="img/instagram.svg"></i>
+                <span>Atpromo</span>
+            </div>
+            <div>
+                <i class="Facebook"><img src="img/facebook.svg"></i>
+                <span>WilliamMelk</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h4>Desenvolvido por William Melk</h4>
+    </footer>
+
+    <script>
+        const carrinho = [];
+        const carrinhoItens = document.getElementById('carrinhoItens');
+        const totalCarrinho = document.getElementById('totalCarrinho');
+
+        function atualizarCarrinho() {
+            carrinhoItens.innerHTML = '';
+            let total = 0;
+            carrinho.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('item-carrinho');
+                itemElement.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>R$${item.price}</span>
+                    <span>Quantidade: ${item.quantity}</span>
+                    <button onclick="removerDoCarrinho(${index})">Remover</button>
+                `;
+                carrinhoItens.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+            totalCarrinho.textContent = total.toFixed(2);
+        }
+
+        function adicionarAoCarrinho(name, price) {
+            const itemExistente = carrinho.find(item => item.name === name);
+            if (itemExistente) {
+                itemExistente.quantity++;
+            } else {
+                carrinho.push({ name, price: parseFloat(price), quantity: 0 });
+            }
+            atualizarCarrinho();
+        }
+
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        document.querySelectorAll('.pedir').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-name');
+                const price = button.getAttribute('data-price');
+                adicionarAoCarrinho(name, price);
+            });
+        });
+
+        function solicitarDados() {
+            if (carrinho.length > 0) {
+                document.getElementById('dadosCliente').style.display = 'block';
+                window.scrollTo(0, document.getElementById('dadosCliente').offsetTop);
+            } else {
+                alert('Seu carrinho está vazio.');
+            }
+        }
+
+        function apresentarResumo() {
+            const nomeCliente = document.getElementById('nomeCliente').value;
+            const enderecoCliente = document.getElementById('enderecoCliente').value;
+
+            if (nomeCliente && enderecoCliente) {
+                document.getElementById('resumoNomeCliente').textContent = nomeCliente;
+                document.getElementById('resumoEnderecoCliente').textContent = enderecoCliente;
+
+                const resumoCarrinho = document.getElementById('resumoCarrinho');
+                resumoCarrinho.innerHTML = '';
+                let total = 0;
+                carrinho.forEach((item) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.innerHTML = `
+                        <span>${item.name} - Quantidade: ${item.quantity}</span>
+                        <span>R$${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    resumoCarrinho.appendChild(itemElement);
+                    total += item.price * item.quantity;
+                });
+                document.getElementById('totalResumo').textContent = total.toFixed(2);
+
+                document.getElementById('resumoPedidoSecao').style.display = 'block';
+                window.scrollTo(0, document.getElementById('resumoPedidoSecao').offsetTop);
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        }
+
+        function finalizarPedido() {
+            document.getElementById('mensagemSucesso').style.display = 'block';
+            document.getElementById('resumoPedidoSecao').style.display = 'none';
+            document.getElementById('dadosCliente').style.display = 'none';
+            document.getElementById('carrinho').style.display = 'none';
+        }
+
+        function cancelarPedido() {
+            if (confirm('Tem certeza que deseja cancelar o pedido?')) {
+                document.getElementById('resumoPedidoSecao').style.display = 'none';
+                document.getElementById('dadosCliente').style.display = 'none';
+                document.getElementById('carrinho').style.display = 'block';
+            }
+        }
+
+        // Exemplo de uso das funções de adicionar e remover do carrinho
+        document.querySelectorAll('.pedir').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.getAttribute('data-name');
+                const price = button.getAttribute('data-price');
+                adicionarAoCarrinho(name, price);
+            });
+        });
+
+
+    </script>
+</body>
+</html>
